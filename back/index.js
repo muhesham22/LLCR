@@ -33,6 +33,18 @@ app.use(multer({
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(cors());
 
+// Serve static files from the React front-end app (dist folder) 
+
+app.use(express.static(path.join(__dirname, '../front/dist')));
+
+// Handles any requests that don't match the ones above 
+
+app.get('*', (req, res) => { 
+    
+    res.sendFile(path.join(__dirname, '../front/dist', 'index.html')); 
+
+});
+
 //using routes
 
 app.use('/cars',carsroutes)
